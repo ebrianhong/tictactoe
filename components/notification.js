@@ -2,9 +2,9 @@ class Notification {
   constructor() {
   }
   presentResult(result) {
-    $('#result').show()
+    $('#result').css('visibility', 'visible')
   }
   hideResult() {
-    $('#result').hide()
+    $('#result').css('visibility', 'hidden')
   }
 }
