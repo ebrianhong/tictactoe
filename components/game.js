@@ -1,19 +1,21 @@
 class Game {
-  constructor() {
+  constructor(board, ai, notification) {
     this.result = null
     this.humanPlayer = 'X'
     this.aiPlayer = 'O'
     this.round = 0
-    this.board = new Board()
-    this.aiLogic = new Ai(this.board)
-    this.notification = new Notification()
+    this.board = board
+    this.aiLogic = ai
+    this.notification = notification
+    this.restartGame = this.restartGame.bind(this)
+    this.clickCell = this.clickCell.bind(this)
+    this.checkResult = this.checkResult.bind(this)
   }
 
   restartGame() {
     this.result = null
     this.round = 0    
     this.board.clearBoard(this)
-    this.aiLogic.restartAi(this.board)
     this.notification.hideResult()
   }
 
@@ -25,7 +27,7 @@ class Game {
       this.board.colorCell(this.result)
     } else {
       this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove())
-      if(this.checkResult(this.aiPlayer, this.board.grid)) {
+      if(this.checkResult(this.aiPlayer, this.board.grid)) {        
         this.board.disableBoard()
         this.notification.presentResult(this.result)
         this.board.colorCell(this.result)

@@ -1,5 +1,8 @@
 $(document).ready(function() {
-  const newGame = new Game()
+  const newBoard = new Board()
+  const newAi = new Ai(newBoard)
+  const newNotification = new Notification()
+  const newGame = new Game(newBoard, newAi, newNotification)
   $('.cell').on('click', function(e) {
     newGame.clickCell(e)
   })

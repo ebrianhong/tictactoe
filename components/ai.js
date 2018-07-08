@@ -1,25 +1,20 @@
 class Ai {
-  constructor(newBoard) {
+  constructor(board) {
     this.emptyCell = []
-    this.grid = newBoard.grid
-    console.log(this.emptyCell)
-    console.log(this.grid)
+    this.board = board
+    this.findBestMove = this.findBestMove.bind(this)
+    this.findEmptyCells = this.findEmptyCells.bind(this)
   }
   findBestMove() {
-    console.log('grid', this.grid)
     this.findEmptyCells()
-    console.log('empty', this.emptyCell)
     return this.emptyCell[0]
   }
   findEmptyCells() {
     this.emptyCell = []
-    for (let i = 0; i < this.grid.length; i++) {
-      if (typeof this.grid[i] === 'number') {
+    for (let i = 0; i < this.board.grid.length; i++) {
+      if (typeof this.board.grid[i] === 'number') {
         this.emptyCell.push(i)
       }
     }
-  }
-  restartAi(board) {
-    this.grid = board.grid
   }
 }

@@ -1,6 +1,10 @@
 class Board {
   constructor() {
     this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    this.addPiece = this.addPiece.bind(this)
+    this.disableBoard = this.disableBoard.bind(this)
+    this.clearBoard = this.clearBoard.bind(this)
+    this.colorCell = this.colorCell.bind(this)
   }
 
   addPiece(player, cellId) {
@@ -20,8 +24,6 @@ class Board {
       })
   }
   colorCell(result) {
-    console.log('color me')
-    console.log(result)
     if (result.player === 'X') {
       for (let i = 0; i < result.winningPlay.length; i++) {
         $('#' + result.winningPlay[i]).css('background-color', 'red')
