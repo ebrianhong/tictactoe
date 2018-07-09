@@ -26,7 +26,7 @@ class Game {
       this.notification.presentResult(this.result)
       this.board.colorCell(this.result)
     } else {
-      this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove())
+      this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove(this.checkResult))
       if(this.checkResult(this.aiPlayer, this.board.grid)) {        
         this.board.disableCell()
         this.notification.presentResult(this.result)
