@@ -35,9 +35,7 @@ class Board {
       }
     }
     if (result.player === 'tie') {
-      for (let i = 0; i < this.grid.length; i++) {
-        $('.cell').css('background-color', 'green')
-      }
+      $('.cell').css('background-color', 'green')      
     }
   }
 }
