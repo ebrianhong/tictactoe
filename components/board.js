@@ -2,7 +2,7 @@ class Board {
   constructor() {
     this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     this.addPiece = this.addPiece.bind(this)
-    this.disableBoard = this.disableBoard.bind(this)
+    this.disableCell = this.disableCell.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
     this.colorCell = this.colorCell.bind(this)
   }
@@ -11,7 +11,7 @@ class Board {
     this.grid[cellId] = player  
     $('#' + cellId).text(player).off('click')
   }
-  disableBoard() {
+  disableCell() {
     $('.cell').off('click')
   }
   clearBoard(game) {

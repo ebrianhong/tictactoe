@@ -22,13 +22,13 @@ class Game {
   clickCell(e) {
     this.board.addPiece(this.humanPlayer, e.target.id)
     if(this.checkResult(this.humanPlayer, this.board.grid)) {
-      this.board.disableBoard()
+      this.board.disableCell()
       this.notification.presentResult(this.result)
       this.board.colorCell(this.result)
     } else {
       this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove())
       if(this.checkResult(this.aiPlayer, this.board.grid)) {        
-        this.board.disableBoard()
+        this.board.disableCell()
         this.notification.presentResult(this.result)
         this.board.colorCell(this.result)
       }  
