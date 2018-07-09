@@ -10,7 +10,8 @@ class Ai {
     // return this.findEmptyCells()[0]
     this.checkResult = cb
     //use minimax to find the best move (need cellId)
-    this.minimax(this.board, 'O')
+    console.log(this.minimax(this.board, 'O').index)
+    return this.minimax(this.board, 'O').index
   }
   findEmptyCells() {
     let emptyCells = []
@@ -22,22 +23,22 @@ class Ai {
     return emptyCells
   }
   minimax(board, player) {
-    console.log(player)
+    // console.log(player)
     let emptyCells = this.findEmptyCells()
     let humanResult = this.checkResult('X', board)
     let aiResult = this.checkResult('O', board)
 
     // human win    
     if (humanResult && humanResult === 'X') {
-      console.log('WIN')
+      // console.log('WIN')
       return {score: -10}
     // ai win
     } else if (aiResult && aiResult === 'O')   {
-      console.log('LOSS')
+      // console.log('LOSS')
       return {score: 10}
     // tie
     } else if (emptyCells.length === 0) {
-      console.log('TIE')
+      // console.log('TIE')
       return {score: 0}
     }
     
@@ -46,12 +47,9 @@ class Ai {
       let move = {}
       move.index = board[emptyCells[i]]
       board[emptyCells[i]] = player
-      console.log(board)
-      console.log(emptyCells)
 
       if (player === 'O') {
         let result = this.minimax(board, 'X')
-        console.log('result.score', result.score)
         move.score = result.score
       } else {
         let result = this.minimax(board, 'O')
@@ -72,7 +70,7 @@ class Ai {
     } else {
       let bestScore = 10000
       for (let i = 0; i < moves.length; i++) {
-        if (moves[i].score > bestScore) {
+        if (moves[i].score < bestScore) {
           bestScore = moves[i].score
           bestMove = i
         }
