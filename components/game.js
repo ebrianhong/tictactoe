@@ -21,12 +21,14 @@ class Game {
 
   clickCell(e) {
     this.board.addPiece(this.humanPlayer, e.target.id)
+    console.log('after human', this.board.grid)
     if(this.checkResult(this.humanPlayer, this.board.grid)) {
       this.board.disableCell()
       this.notification.presentResult(this.result)
       this.board.colorCell(this.result)
-    } else {
-      this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove(this.checkResult))
+    } else {      
+      this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove(this.checkResult, this.board))
+      console.log('after ai', this.board.grid)
       if(this.checkResult(this.aiPlayer, this.board.grid)) {        
         this.board.disableCell()
         this.notification.presentResult(this.result)
