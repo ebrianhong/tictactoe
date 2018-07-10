@@ -19,6 +19,7 @@ class Board {
     $('.cell')
       .text('')
       .css('background-color', '')
+      .off('click')
       .on('click', function(e) {
         game.clickCell(e)
       })

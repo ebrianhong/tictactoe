@@ -3,12 +3,13 @@ class Ai {
     this.findBestMove = this.findBestMove.bind(this)
     this.findEmptyCells = this.findEmptyCells.bind(this)
     this.minimax = this.minimax.bind(this)
-    this.callback
+    this.checkResult
   }
   findBestMove(cb, board) {
     let grid = board.grid
-    this.callback = cb
-    return this.minimax(grid, 'O', this.callback).index
+    this.checkResult = cb
+    console.log(this.minimax(grid, 'O').index)
+    return this.minimax(grid, 'O').index
   }
   findEmptyCells(board) {
     let emptyCells = []
@@ -19,11 +20,11 @@ class Ai {
     }
     return emptyCells
   }
-  minimax(grid, player, cb) {
+  minimax(grid, player) {
     let emptyCells = this.findEmptyCells(grid)
-    let humanResult = this.callback('X', grid)
+    let humanResult = this.checkResult('X', grid)
     
-    let aiResult = this.callback('O', grid)
+    let aiResult = this.checkResult('O', grid)
 
     if (humanResult && humanResult.player === 'X') {
       return {score: -10}
@@ -49,6 +50,7 @@ class Ai {
       grid[emptyCells[i]] = move.index
       moves.push(move)
     }
+
     let bestMove
     if (player === 'O') {
       let bestScore = -9000
@@ -67,6 +69,7 @@ class Ai {
         }
       }
     }
+
     return moves[bestMove]
   }
 }
