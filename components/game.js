@@ -9,7 +9,7 @@ class Game {
     this.notification = notification
     this.restartGame = this.restartGame.bind(this)
     this.clickCell = this.clickCell.bind(this)
-    this.checkResult = this.checkResult.bind(this)
+    // this.checkResult = this.checkResult.bind(this)
   }
 
   restartGame() {
@@ -21,14 +21,12 @@ class Game {
 
   clickCell(e) {
     this.board.addPiece(this.humanPlayer, e.target.id)
-    console.log('after human', this.board.grid)
     if(this.checkResult(this.humanPlayer, this.board.grid)) {
       this.board.disableCell()
       this.notification.presentResult(this.result)
       this.board.colorCell(this.result)
     } else {      
       this.board.addPiece(this.aiPlayer, this.aiLogic.findBestMove(this.checkResult, this.board))
-      console.log('after ai', this.board.grid)
       if(this.checkResult(this.aiPlayer, this.board.grid)) {        
         this.board.disableCell()
         this.notification.presentResult(this.result)
@@ -37,15 +35,15 @@ class Game {
     }
   }    
 
-  checkResult(player, board) {
+  checkResult(player, grid) {
     this.round++
     let winner = {
       player: null,
       winningPlay: []
     }
     // check horizontal
-    for (let i = 0; i < board.length; i += 3) {
-      if (board[i] === player && board[i] === board[i + 1] && board[i] === board[i + 2]) {
+    for (let i = 0; i < grid.length; i += 3) {
+      if (grid[i] === player && grid[i] === grid[i + 1] && grid[i] === grid[i + 2]) {
         winner.player = player
         winner.winningPlay.push(i, i + 1, i + 2)
         this.result = winner
@@ -54,7 +52,7 @@ class Game {
     }
     // check vertical
     for (let i = 0; i < 3; i++) {
-      if (board[i] === player && board[i] === board[i + 3] && board[i] === board[i + 6]) {
+      if (grid[i] === player && grid[i] === grid[i + 3] && grid[i] === grid[i + 6]) {
         winner.player = player
         winner.winningPlay.push(i, i + 3, i + 6)
         this.result = winner
@@ -62,13 +60,13 @@ class Game {
       }
     }
     // check diagnoal
-    if (board[0] === player && board[0] === board[4] && board[0] === board[8]) {
+    if (grid[0] === player && grid[0] === grid[4] && grid[0] === grid[8]) {
       winner.player = player
       winner.winningPlay.push(0, 4, 8)
       this.result = winner
       return winner
     }
-    if (board[2] === player && board[2] === board[4] && board[2] === board[6]) {
+    if (grid[2] === player && grid[2] === grid[4] && grid[2] === grid[6]) {
       winner.player = player
       winner.winningPlay.push(2, 4, 6)
       this.result = winner

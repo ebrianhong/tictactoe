@@ -1,6 +1,6 @@
 class Board {
   constructor() {
-    this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    this.grid = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     this.addPiece = this.addPiece.bind(this)
     this.disableCell = this.disableCell.bind(this)
     this.clearBoard = this.clearBoard.bind(this)
@@ -15,7 +15,7 @@ class Board {
     $('.cell').off('click')
   }
   clearBoard(game) {
-    this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    this.grid = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     $('.cell')
       .text('')
       .css('background-color', '')

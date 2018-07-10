@@ -1,16 +1,14 @@
 class Ai {
-  constructor(board) {
-    this.board = board.grid
+  constructor() {
     this.findBestMove = this.findBestMove.bind(this)
     this.findEmptyCells = this.findEmptyCells.bind(this)
     this.minimax = this.minimax.bind(this)
     this.callback
   }
   findBestMove(cb, board) {
-    let newBoard = board.grid
+    let grid = board.grid
     this.callback = cb
-    console.log(this.minimax(newBoard, 'O', cb))
-    return this.minimax(newBoard, 'O', this.callback).index
+    return this.minimax(grid, 'O', this.callback).index
   }
   findEmptyCells(board) {
     let emptyCells = []
@@ -21,60 +19,51 @@ class Ai {
     }
     return emptyCells
   }
-  minimax(board, player, cb) {
-    let emptyCells = this.findEmptyCells(board)
-    let humanResult = this.callback('X', board)
+  minimax(grid, player, cb) {
+    let emptyCells = this.findEmptyCells(grid)
+    let humanResult = this.callback('X', grid)
     
-    let aiResult = this.callback('O', board)
-    
-    
-
-    // human win    
+    let aiResult = this.callback('O', grid)
 
     if (humanResult && humanResult.player === 'X') {
-      // console.log('WIN')
       return {score: -10}
-    // ai win
     } else if (aiResult && aiResult.player === 'O')   {
-      // console.log('LOSS')
       return {score: 10}
-    // tie
     } else if (emptyCells.length === 0) {
-      // console.log('TIE')
       return {score: 0}
     }
     
     let moves = []
     for (let i = 0; i < emptyCells.length; i++) {
       let move = {}
-      move.index = emptyCells[i]
-      board[emptyCells[i]] = player
+      move.index = grid[emptyCells[i]]
+      grid[emptyCells[i]] = player
 
       if (player === 'O') {
-        let result = this.minimax(board, 'X')
+        let result = this.minimax(grid, 'X')
         move.score = result.score
       } else {
-        let result = this.minimax(board, 'O')
+        let result = this.minimax(grid, 'O')
         move.score = result.score
       }
-      board[emptyCells[i]] = player
+      grid[emptyCells[i]] = move.index
       moves.push(move)
     }
     let bestMove
     if (player === 'O') {
-      let bestScore = -10000
+      let bestScore = -9000
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score > bestScore) {
           bestScore = moves[i].score
-          bestMove = moves[i].index
+          bestMove = i
         }
       }
     } else {
-      let bestScore = 10000
+      let bestScore = 9000
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score < bestScore) {
           bestScore = moves[i].score
-          bestMove = moves[i].index
+          bestMove = i
         }
       }
     }
