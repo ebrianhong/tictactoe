@@ -3,4 +3,5 @@
 
 ```Instructions: 
 1. Open index.html to start game
-2. Click 'Play Again' to restart game```
+2. Click 'Play Again' to restart game
+```
