@@ -1,4 +1,4 @@
 # Tic Tac Toe
-Simple tictactoe project with unbeatable AI (using minimax)
+*Simple tictactoe project with unbeatable AI (using minimax)*
 
-Open index.html to start game
+```Instructions: Open index.html to start game```
