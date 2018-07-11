@@ -1,11 +1,23 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+}
+
+header {
+  text-align: center;
+  height: 100px;
+}
+
+h1 {
+  line-height: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 3em;
 }
 
 td {
   border: 2px solid black;
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
   text-align: center;
   vertical-align: middle;
 }
@@ -16,21 +28,37 @@ table {
 
 .cell {
   border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 3em;
 }
 
 #interface {
-  width: 100px;
+  height: 200px;
+  width: 300px;
   margin: 0 auto;
   text-align: center;
 }
 
 #result {
   visibility: hidden;
+  height: 70px;
   width: 90%;
-  margin: 0 auto;
+  margin: 5px auto;
   text-align: center;
 }
 
+#result p {
+  line-height: 70px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
+}
+
 #button {
+  height: 90px;
   width: 90%;
+  background-color: transparent;
+  border: black 2px solid;
+  margin: 5px auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
 }

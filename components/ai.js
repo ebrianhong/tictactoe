@@ -1,75 +1,82 @@
 class Ai {
   constructor() {
-    this.findBestMove = this.findBestMove.bind(this)
-    this.findEmptyCells = this.findEmptyCells.bind(this)
-    this.minimax = this.minimax.bind(this)
-    this.checkResult
+    this.ai;
+    this.human;
+    this.checkResult;
+
+    this.findBestMove = this.findBestMove.bind(this);
+    this.findEmptyCells = this.findEmptyCells.bind(this);
+    this.minimax = this.minimax.bind(this);
   }
-  findBestMove(cb, board) {
-    let grid = board.grid
-    this.checkResult = cb
-    console.log(this.minimax(grid, 'O').index)
-    return this.minimax(grid, 'O').index
+
+  findBestMove(cb, board, ai, human) {
+    let grid = board.grid;
+    this.checkResult = cb;
+    this.ai = ai;
+    this.human = human;
+    return this.minimax(grid, this.ai).index;
   }
+
   findEmptyCells(board) {
-    let emptyCells = []
+    let emptyCells = [];
     for (let i = 0; i < board.length; i++) {
       if (typeof board[i] === 'number') {
-        emptyCells.push(i)
+        emptyCells.push(i);
       }
     }
-    return emptyCells
+    return emptyCells;
   }
+
   minimax(grid, player) {
-    let emptyCells = this.findEmptyCells(grid)
-    let humanResult = this.checkResult('X', grid)
-    
-    let aiResult = this.checkResult('O', grid)
+    let emptyCells = this.findEmptyCells(grid);
+    let humanResult = this.checkResult(this.human, grid);
+    let aiResult = this.checkResult(this.ai, grid);
 
-    if (humanResult && humanResult.player === 'X') {
-      return {score: -10}
-    } else if (aiResult && aiResult.player === 'O')   {
-      return {score: 10}
+    if (humanResult && humanResult.player === this.human) {
+      return {score: -10};
+    } else if (aiResult && aiResult.player === this.ai)   {
+      return {score: 10};
     } else if (emptyCells.length === 0) {
-      return {score: 0}
+      return {score: 0};
     }
     
-    let moves = []
+    let moves = [];
     for (let i = 0; i < emptyCells.length; i++) {
-      let move = {}
-      move.index = grid[emptyCells[i]]
-      grid[emptyCells[i]] = player
+      let move = {};
+      move.index = grid[emptyCells[i]];
+      grid[emptyCells[i]] = player;
 
-      if (player === 'O') {
-        let result = this.minimax(grid, 'X')
-        move.score = result.score
+      if (player === this.ai) {
+        let result = this.minimax(grid, this.human);
+        move.score = result.score;
       } else {
-        let result = this.minimax(grid, 'O')
-        move.score = result.score
+        let result = this.minimax(grid, this.ai);
+        move.score = result.score;
       }
-      grid[emptyCells[i]] = move.index
-      moves.push(move)
+
+      grid[emptyCells[i]] = move.index;
+      moves.push(move);
     }
 
-    let bestMove
-    if (player === 'O') {
-      let bestScore = -9000
+    let bestMove;
+    if (player === this.ai) {
+      let bestScore = -9000;
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score > bestScore) {
-          bestScore = moves[i].score
-          bestMove = i
+          bestScore = moves[i].score;
+          bestMove = i;
         }
       }
     } else {
-      let bestScore = 9000
+      let bestScore = 9000;
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score < bestScore) {
-          bestScore = moves[i].score
-          bestMove = i
+          bestScore = moves[i].score;
+          bestMove = i;
         }
       }
     }
 
-    return moves[bestMove]
+    return moves[bestMove];
   }
 }
